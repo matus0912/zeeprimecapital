@@ -386,4 +386,29 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.animationDelay = `${index * 0.2}s`;
         });
     }
+
+    // Handle contact form submission
+    const contactFormElement = document.getElementById('contactForm');
+    const formSuccess = document.getElementById('formSuccess');
+    
+    if (contactFormElement) {
+        contactFormElement.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real application, you would send the form data to a server here
+            // For this demo, we'll just show the success message
+            
+            // Hide the form
+            contactFormElement.style.display = 'none';
+            
+            // Show success message
+            formSuccess.style.display = 'block';
+            
+            // Scroll to the success message
+            formSuccess.scrollIntoView({ behavior: 'smooth' });
+            
+            // Clear form fields
+            contactFormElement.reset();
+        });
+    }
 }); 
