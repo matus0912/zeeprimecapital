@@ -446,6 +446,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabContents = document.querySelectorAll('.tab-content');
     
     if (tabBtns.length > 0) {
+        // Make sure the first tab is active by default
+        tabBtns[0].classList.add('active');
+        document.getElementById('positions').classList.add('active');
+        
         tabBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 // Remove active class from all buttons and contents
@@ -475,22 +479,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Why join cards animation
             const whyJoinCards = careerSection.querySelectorAll('.why-join-card');
             whyJoinCards.forEach((card, index) => {
-                card.classList.add('fade-in', 'disappear-on-exit');
-                card.style.transitionDelay = `${index * 0.1}s`;
-                observer.observe(card);
-            });
-            
-            // Investor cards animation
-            const investorCards = careerSection.querySelectorAll('.investor-card');
-            investorCards.forEach((card, index) => {
-                card.classList.add('fade-in', 'disappear-on-exit');
-                card.style.transitionDelay = `${index * 0.1}s`;
-                observer.observe(card);
-            });
-            
-            // Legal team cards animation
-            const legalCards = careerSection.querySelectorAll('.legal-team-card');
-            legalCards.forEach((card, index) => {
                 card.classList.add('fade-in', 'disappear-on-exit');
                 card.style.transitionDelay = `${index * 0.1}s`;
                 observer.observe(card);

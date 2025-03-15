@@ -1213,38 +1213,24 @@ footer::before {
 /* New text reveal animation */
 .text-reveal {
     opacity: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.text-reveal::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 100%;
-    background: var(--accent-color-1);
-    transition: width 0.8s ease;
+    transition: opacity 0.6s ease-out;
 }
 
 .text-reveal.visible {
     opacity: 1;
-    animation: revealText 1.2s ease forwards;
+}
+
+/* Remove the purple flash animation */
+.text-reveal::after {
+    display: none;
 }
 
 .text-reveal.visible::after {
-    width: 100%;
-    left: auto;
-    right: 0;
-    animation: revealTextAfter 1.2s ease forwards;
+    display: none;
 }
 
 @keyframes revealText {
     0% {
-        opacity: 0;
-    }
-    50% {
         opacity: 0;
     }
     100% {
@@ -1253,18 +1239,7 @@ footer::before {
 }
 
 @keyframes revealTextAfter {
-    0% {
-        left: 0;
-        width: 0%;
-    }
-    50% {
-        left: 0;
-        width: 100%;
-    }
-    100% {
-        left: 100%;
-        width: 0%;
-    }
+    /* Empty animation since we're not using it anymore */
 }
 
 /* Letter-by-letter animation for titles */
