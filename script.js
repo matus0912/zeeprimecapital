@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Create cube faces
         const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'];
-        const icons = ['fa-bitcoin', 'fa-ethereum', 'fa-chart-line', 'fa-code', 'fa-rocket', 'fa-lightbulb'];
+        const icons = ['fa-bitcoin', 'fa-ethereum', 'fa-chart-line', 'fa-code', 'fa-coins', 'fa-chart-pie'];
         
         faces.forEach((face, index) => {
             const cubeFace = document.createElement('div');
