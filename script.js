@@ -437,64 +437,12 @@ document.addEventListener('DOMContentLoaded', function() {
         tabBtns[0].classList.add('active');
         document.getElementById('positions').classList.add('active');
         
-        // Add direct click handler for Why Join Us button
-        const whyJoinBtn = document.querySelector('.tab-btn[data-tab="why-join"]');
-        if (whyJoinBtn) {
-            whyJoinBtn.addEventListener('click', function() {
-                // Hide positions tab
-                const positionsTab = document.getElementById('positions');
-                if (positionsTab) {
-                    positionsTab.classList.remove('active');
-                }
-                
-                // Show why join us tab
-                const whyJoinTab = document.getElementById('why-join');
-                if (whyJoinTab) {
-                    whyJoinTab.classList.add('active');
-                }
-                
-                // Update button states
-                tabBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        }
-        
-        // Add click handler for Open Positions button
-        const positionsBtn = document.querySelector('.tab-btn[data-tab="positions"]');
-        if (positionsBtn) {
-            positionsBtn.addEventListener('click', function() {
-                // Hide why join us tab
-                const whyJoinTab = document.getElementById('why-join');
-                if (whyJoinTab) {
-                    whyJoinTab.classList.remove('active');
-                }
-                
-                // Show positions tab
-                const positionsTab = document.getElementById('positions');
-                if (positionsTab) {
-                    positionsTab.classList.add('active');
-                }
-                
-                // Update button states
-                tabBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        }
-        
         // Add scroll animations for career section elements
         const careerSection = document.querySelector('.careers');
         if (careerSection) {
             // Position cards animation
             const positionCards = careerSection.querySelectorAll('.position-card');
             positionCards.forEach((card, index) => {
-                card.classList.add('fade-in', 'disappear-on-exit');
-                card.style.transitionDelay = `${index * 0.1}s`;
-                observer.observe(card);
-            });
-            
-            // Why join cards animation
-            const whyJoinCards = careerSection.querySelectorAll('.why-join-card');
-            whyJoinCards.forEach((card, index) => {
                 card.classList.add('fade-in', 'disappear-on-exit');
                 card.style.transitionDelay = `${index * 0.1}s`;
                 observer.observe(card);
@@ -509,7 +457,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Handle contact form submission
+    // Add animations for Solana section
+    const solanaSection = document.querySelector('.solana-investment');
+    if (solanaSection) {
+        const solanaFeatures = solanaSection.querySelectorAll('.solana-feature');
+        solanaFeatures.forEach((feature, index) => {
+            feature.classList.add('fade-in', 'disappear-on-exit');
+            feature.style.transitionDelay = `${index * 0.1}s`;
+            observer.observe(feature);
+        });
+        
+        const solanaLogo = solanaSection.querySelector('.solana-logo');
+        if (solanaLogo) {
+            solanaLogo.classList.add('fade-in', 'disappear-on-exit');
+            observer.observe(solanaLogo);
+        }
+        
+        const solanaCta = solanaSection.querySelector('.solana-cta');
+        if (solanaCta) {
+            solanaCta.classList.add('slide-in-left', 'disappear-on-exit');
+            observer.observe(solanaCta);
+        }
+    }
+
+    // Handle contact form submission with flying paper plane animation
     const contactFormElement = document.getElementById('contactForm');
     const formSuccess = document.getElementById('formSuccess');
     
@@ -517,20 +488,38 @@ document.addEventListener('DOMContentLoaded', function() {
         contactFormElement.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // In a real application, you would send the form data to a server here
-            // For this demo, we'll just show the success message
+            // Create flying paper plane
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const submitBtnRect = submitBtn.getBoundingClientRect();
+            const paperPlane = document.createElement('div');
             
-            // Hide the form
-            contactFormElement.style.display = 'none';
+            paperPlane.classList.add('flying-plane');
+            paperPlane.innerHTML = '<i class="fas fa-paper-plane"></i>';
+            paperPlane.style.position = 'fixed';
+            paperPlane.style.top = `${submitBtnRect.top + submitBtnRect.height/2}px`;
+            paperPlane.style.left = `${submitBtnRect.left + submitBtnRect.width/2}px`;
             
-            // Show success message
-            formSuccess.style.display = 'block';
+            document.body.appendChild(paperPlane);
             
-            // Scroll to the success message
-            formSuccess.scrollIntoView({ behavior: 'smooth' });
-            
-            // Clear form fields
-            contactFormElement.reset();
+            // Hide the form after animation completes
+            setTimeout(() => {
+                // Hide the form
+                contactFormElement.style.display = 'none';
+                
+                // Show success message
+                formSuccess.style.display = 'block';
+                
+                // Scroll to the success message
+                formSuccess.scrollIntoView({ behavior: 'smooth' });
+                
+                // Remove the paper plane after animation
+                setTimeout(() => {
+                    paperPlane.remove();
+                }, 2000);
+                
+                // Clear form fields
+                contactFormElement.reset();
+            }, 1000);
         });
     }
 }); 

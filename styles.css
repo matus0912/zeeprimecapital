@@ -1832,4 +1832,245 @@ footer::before {
     .careers-cta {
         padding: 30px 20px;
     }
+}
+
+/* Solana Investment Section */
+.solana-investment {
+    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+.solana-investment::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top right, var(--light-purple), transparent 70%);
+    z-index: 0;
+    transition: background 0.5s ease;
+}
+
+.solana-investment h2, .solana-content {
+    position: relative;
+    z-index: 1;
+}
+
+.solana-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.solana-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.solana-logo {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(156, 39, 176, 0.5));
+    transition: transform 0.5s ease, filter 0.5s ease;
+    animation: pulse 3s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(156, 39, 176, 0.5));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(156, 39, 176, 0.8));
+    }
+}
+
+.solana-info {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.solana-info h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--secondary-color);
+}
+
+.solana-info > p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.solana-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.solana-feature {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    border: 1px solid var(--card-border);
+    text-align: center;
+}
+
+.solana-feature:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--hover-shadow);
+}
+
+.solana-feature i {
+    font-size: 2.5rem;
+    color: var(--accent-color-1);
+    margin-bottom: 20px;
+    transition: transform 0.5s ease;
+}
+
+.solana-feature:hover i {
+    transform: scale(1.1);
+}
+
+.solana-feature h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+.solana-feature p {
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.solana-cta {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.solana-cta .btn {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+}
+
+.solana-cta .btn i {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.solana-cta .btn:hover i {
+    transform: translateX(5px);
+}
+
+/* Responsive adjustments for Solana section */
+@media screen and (max-width: 768px) {
+    .solana-content {
+        flex-direction: column;
+    }
+    
+    .solana-logo {
+        width: 150px;
+    }
+    
+    .solana-info h3 {
+        font-size: 1.8rem;
+    }
+    
+    .solana-info > p {
+        font-size: 1.1rem;
+    }
+    
+    .solana-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Flying Paper Plane Animation for Contact Form */
+@keyframes flyPlane {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: translate(100px, -100px) rotate(15deg);
+        opacity: 0.9;
+    }
+    50% {
+        transform: translate(200px, -150px) rotate(30deg);
+        opacity: 0.7;
+    }
+    75% {
+        transform: translate(300px, -100px) rotate(45deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translate(500px, -200px) rotate(60deg);
+        opacity: 0;
+    }
+}
+
+.flying-plane {
+    position: absolute;
+    font-size: 2rem;
+    color: var(--accent-color-1);
+    animation: flyPlane 2s forwards ease-out;
+    z-index: 10;
+}
+
+/* Enhance form success message */
+.form-success {
+    text-align: center;
+    padding: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    border: 1px solid var(--accent-color-1);
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.form-success i {
+    font-size: 3rem;
+    color: var(--accent-color-1);
+    margin-bottom: 20px;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+.form-success h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+.form-success p {
+    color: var(--text-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 } 
