@@ -440,6 +440,70 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.animationDelay = `${index * 0.2}s`;
         });
     }
+    
+    // Handle Careers tab functionality
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    if (tabBtns.length > 0) {
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Add scroll animations for career section elements
+        const careerSection = document.querySelector('.careers');
+        if (careerSection) {
+            // Position cards animation
+            const positionCards = careerSection.querySelectorAll('.position-card');
+            positionCards.forEach((card, index) => {
+                card.classList.add('fade-in', 'disappear-on-exit');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+            
+            // Why join cards animation
+            const whyJoinCards = careerSection.querySelectorAll('.why-join-card');
+            whyJoinCards.forEach((card, index) => {
+                card.classList.add('fade-in', 'disappear-on-exit');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+            
+            // Investor cards animation
+            const investorCards = careerSection.querySelectorAll('.investor-card');
+            investorCards.forEach((card, index) => {
+                card.classList.add('fade-in', 'disappear-on-exit');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+            
+            // Legal team cards animation
+            const legalCards = careerSection.querySelectorAll('.legal-team-card');
+            legalCards.forEach((card, index) => {
+                card.classList.add('fade-in', 'disappear-on-exit');
+                card.style.transitionDelay = `${index * 0.1}s`;
+                observer.observe(card);
+            });
+            
+            // CTA animation
+            const careersCta = careerSection.querySelector('.careers-cta');
+            if (careersCta) {
+                careersCta.classList.add('slide-in-left', 'disappear-on-exit');
+                observer.observe(careersCta);
+            }
+        }
+    }
 
     // Handle contact form submission
     const contactFormElement = document.getElementById('contactForm');
