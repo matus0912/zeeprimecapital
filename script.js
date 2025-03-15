@@ -122,34 +122,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add text reveal animations for paragraphs
+    // Simplify text animations - no more purple flash
     const textRevealParagraphs = document.querySelectorAll('.about p, .time-machine .section-intro, .time-machine-footer');
     textRevealParagraphs.forEach(paragraph => {
-        paragraph.classList.add('text-reveal', 'disappear-on-exit');
+        paragraph.classList.add('fade-in', 'disappear-on-exit');
         observer.observe(paragraph);
     });
 
-    // Add letter-by-letter animation for section titles
+    // Simplify section title animations
     const sectionTitles = document.querySelectorAll('section h2');
     sectionTitles.forEach(title => {
-        const text = title.textContent;
-        title.innerHTML = '';
-        
-        // Create wrapper for the text
-        const wrapper = document.createElement('span');
-        wrapper.classList.add('title-wrapper');
-        
-        // Add each letter in a span
-        for (let i = 0; i < text.length; i++) {
-            const letterSpan = document.createElement('span');
-            letterSpan.classList.add('title-letter');
-            letterSpan.style.transitionDelay = `${i * 0.03}s`;
-            letterSpan.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-            wrapper.appendChild(letterSpan);
-        }
-        
-        title.appendChild(wrapper);
-        title.classList.add('letter-animation', 'disappear-on-exit');
+        title.classList.add('fade-in', 'disappear-on-exit');
         observer.observe(title);
     });
     
@@ -446,24 +429,57 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabContents = document.querySelectorAll('.tab-content');
     
     if (tabBtns.length > 0) {
-        // Make sure the first tab is active by default
+        // Clear any existing active classes first
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        
+        // Set the first tab as active by default
         tabBtns[0].classList.add('active');
         document.getElementById('positions').classList.add('active');
         
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Remove active class from all buttons and contents
+        // Add direct click handler for Why Join Us button
+        const whyJoinBtn = document.querySelector('.tab-btn[data-tab="why-join"]');
+        if (whyJoinBtn) {
+            whyJoinBtn.addEventListener('click', function() {
+                // Hide positions tab
+                const positionsTab = document.getElementById('positions');
+                if (positionsTab) {
+                    positionsTab.classList.remove('active');
+                }
+                
+                // Show why join us tab
+                const whyJoinTab = document.getElementById('why-join');
+                if (whyJoinTab) {
+                    whyJoinTab.classList.add('active');
+                }
+                
+                // Update button states
                 tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked button
                 this.classList.add('active');
-                
-                // Show corresponding content
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
             });
-        });
+        }
+        
+        // Add click handler for Open Positions button
+        const positionsBtn = document.querySelector('.tab-btn[data-tab="positions"]');
+        if (positionsBtn) {
+            positionsBtn.addEventListener('click', function() {
+                // Hide why join us tab
+                const whyJoinTab = document.getElementById('why-join');
+                if (whyJoinTab) {
+                    whyJoinTab.classList.remove('active');
+                }
+                
+                // Show positions tab
+                const positionsTab = document.getElementById('positions');
+                if (positionsTab) {
+                    positionsTab.classList.add('active');
+                }
+                
+                // Update button states
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        }
         
         // Add scroll animations for career section elements
         const careerSection = document.querySelector('.careers');

@@ -1210,7 +1210,7 @@ footer::before {
     transform: translateX(0);
 }
 
-/* New text reveal animation */
+/* Simplified text reveal animation - no purple flash */
 .text-reveal {
     opacity: 0;
     transition: opacity 0.6s ease-out;
@@ -1220,44 +1220,46 @@ footer::before {
     opacity: 1;
 }
 
-/* Remove the purple flash animation */
-.text-reveal::after {
-    display: none;
-}
-
+/* Remove all purple flash animations */
+.text-reveal::after,
 .text-reveal.visible::after {
     display: none;
 }
 
-@keyframes revealText {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes revealTextAfter {
-    /* Empty animation since we're not using it anymore */
-}
-
-/* Letter-by-letter animation for titles */
+/* Letter-by-letter animation for titles - simplified */
 .letter-animation .title-wrapper {
     display: inline-block;
-    overflow: hidden;
 }
 
 .letter-animation .title-letter {
     display: inline-block;
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(20px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .letter-animation.visible .title-letter {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Tab Content - ensure proper display/hide */
+.tab-content {
+    display: none;
+    animation: simpleFadeIn 0.4s ease forwards;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes simpleFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Staggered fade-in for portfolio items */
@@ -1581,21 +1583,19 @@ footer::before {
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.5s ease forwards;
+    animation: simpleFadeIn 0.4s ease forwards;
 }
 
 .tab-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
+@keyframes simpleFadeIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
     }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }
 
