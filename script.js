@@ -25,6 +25,52 @@ document.addEventListener('DOMContentLoaded', function() {
     animatedBg.classList.add('animated-background');
     document.body.appendChild(animatedBg);
     
+    // Enhance Crypto Planets Animation
+    const cryptoAnimation = document.querySelector('.crypto-planets-animation');
+    const coin = document.querySelector('.crypto-coin');
+    const earth = document.querySelector('.planet.earth');
+    const mars = document.querySelector('.planet.mars');
+    
+    if (cryptoAnimation && coin && earth && mars) {
+        // Create eating effect
+        const simulateEating = (planet) => {
+            // Get positions
+            const coinRect = coin.getBoundingClientRect();
+            const planetRect = planet.getBoundingClientRect();
+            
+            // Calculate distance
+            const dx = (planetRect.left + planetRect.width/2) - (coinRect.left + coinRect.width/2);
+            const dy = (planetRect.top + planetRect.height/2) - (coinRect.top + coinRect.height/2);
+            const distance = Math.sqrt(dx*dx + dy*dy);
+            
+            // If close enough, "eat" the planet
+            if (distance < 50) {
+                // Make planet smaller
+                planet.style.transition = 'transform 0.5s ease-in-out';
+                planet.style.transform = 'scale(0.1)';
+                
+                // Make coin bigger
+                coin.style.transition = 'transform 0.5s ease-in-out';
+                coin.style.transform = 'scale(1.3)';
+                
+                // Reset after animation
+                setTimeout(() => {
+                    planet.style.transition = 'transform 0.5s ease-in-out';
+                    planet.style.transform = 'scale(1)';
+                    
+                    coin.style.transition = 'transform 0.5s ease-in-out';
+                    coin.style.transform = 'scale(1)';
+                }, 500);
+            }
+        };
+        
+        // Check for eating every second
+        setInterval(() => {
+            simulateEating(earth);
+            simulateEating(mars);
+        }, 1000);
+    }
+    
     // Mobile Navigation Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
