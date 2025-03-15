@@ -70,6 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+            } else {
+                // Remove the visible class when element is out of view for disappearing effect
+                if (entry.target.classList.contains('disappear-on-exit')) {
+                    entry.target.classList.remove('visible');
+                }
             }
         });
     }, observerOptions);
@@ -85,34 +90,67 @@ document.addEventListener('DOMContentLoaded', function() {
         const timeMachineCards = section.querySelectorAll('.time-machine-card');
 
         headings.forEach(heading => {
-            heading.classList.add('fade-in');
+            heading.classList.add('fade-in', 'disappear-on-exit');
             observer.observe(heading);
         });
 
         paragraphs.forEach(paragraph => {
-            paragraph.classList.add('fade-in');
+            paragraph.classList.add('fade-in', 'disappear-on-exit');
             observer.observe(paragraph);
         });
 
         features.forEach((feature, i) => {
-            feature.classList.add(i % 2 === 0 ? 'slide-in-left' : 'slide-in-right');
+            feature.classList.add(i % 2 === 0 ? 'slide-in-left' : 'slide-in-right', 'disappear-on-exit');
             observer.observe(feature);
         });
 
         teamMembers.forEach((member, i) => {
-            member.classList.add('fade-in');
+            member.classList.add('fade-in', 'disappear-on-exit');
+            member.style.transitionDelay = `${i * 0.1}s`;
             observer.observe(member);
         });
 
         portfolioItems.forEach((item, i) => {
-            item.classList.add('fade-in');
+            item.classList.add('fade-in', 'disappear-on-exit');
+            item.style.transitionDelay = `${(i % 6) * 0.05}s`;
             observer.observe(item);
         });
 
         timeMachineCards.forEach((card, i) => {
-            card.classList.add('fade-in');
+            card.classList.add('fade-in', 'disappear-on-exit');
             observer.observe(card);
         });
+    });
+    
+    // Add text reveal animations for paragraphs
+    const textRevealParagraphs = document.querySelectorAll('.about p, .time-machine .section-intro, .time-machine-footer');
+    textRevealParagraphs.forEach(paragraph => {
+        paragraph.classList.add('text-reveal', 'disappear-on-exit');
+        observer.observe(paragraph);
+    });
+
+    // Add letter-by-letter animation for section titles
+    const sectionTitles = document.querySelectorAll('section h2');
+    sectionTitles.forEach(title => {
+        const text = title.textContent;
+        title.innerHTML = '';
+        
+        // Create wrapper for the text
+        const wrapper = document.createElement('span');
+        wrapper.classList.add('title-wrapper');
+        
+        // Add each letter in a span
+        for (let i = 0; i < text.length; i++) {
+            const letterSpan = document.createElement('span');
+            letterSpan.classList.add('title-letter');
+            letterSpan.style.transitionDelay = `${i * 0.03}s`;
+            letterSpan.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+            wrapper.appendChild(letterSpan);
+        }
+        
+        title.appendChild(wrapper);
+        title.classList.add('letter-animation', 'disappear-on-exit');
+        observer.observe(title);
     });
     
     // Add animation keyframes for particles
@@ -338,7 +376,23 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroSection) {
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
+            const opacity = 1 - Math.min(1, scrollPosition / 700);
+            
+            // Parallax background effect
             heroSection.style.backgroundPosition = `center ${scrollPosition * 0.5}px`;
+            
+            // Fade out hero content on scroll
+            const heroContent = heroSection.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.opacity = opacity;
+                heroContent.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+            }
+            
+            // Rotate 3D cube faster on scroll
+            const cube = heroSection.querySelector('.cube');
+            if (cube) {
+                cube.style.transform = `rotateX(${scrollPosition * 0.1}deg) rotateY(${scrollPosition * 0.1}deg)`;
+            }
         });
     }
     
